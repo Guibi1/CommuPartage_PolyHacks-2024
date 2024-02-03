@@ -14,8 +14,8 @@ export const users = mysqlTable("users", {
     id: varchar("id", { length: 24 }).primaryKey(),
     name: varchar("name", { length: 24 }),
     email: varchar("email", { length: 50 }),
-    position: json("position"),
     avatar: varchar("avatar", { length: 200 }),
+    position: json("position"),
 });
 
 export const reviews = mysqlTable("reviews", {
@@ -28,7 +28,7 @@ export const reviews = mysqlTable("reviews", {
     weight: int("weight"),
 });
 
-export const transactions = mysqlTable("reviews", {
+export const transactions = mysqlTable("transactions", {
     id: varchar("id", { length: 24 }).primaryKey(),
     object_id: varchar("object_id", { length: 24 }),
     lender_id: varchar("lender_id", { length: 24 }),
