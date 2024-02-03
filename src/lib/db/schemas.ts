@@ -1,5 +1,5 @@
 // drizzle/schema.ts
-import { datetime, int, json, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { boolean, datetime, int, json, mysqlTable, varchar } from "drizzle-orm/mysql-core";
 
 export const objects = mysqlTable("objects", {
     id: varchar("id", { length: 24 }).primaryKey(),
@@ -35,4 +35,5 @@ export const transactions = mysqlTable("transactions", {
     receiver_id: varchar("receiver_id", { length: 24 }),
     date_start: datetime("date_start"),
     date_end: datetime("date_end"),
+    active: boolean("active")
 });
