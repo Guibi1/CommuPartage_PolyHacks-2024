@@ -62,6 +62,12 @@
             },
         }}
     >
+        <Form.Field {config} name="id">
+            <Form.Item hidden>
+                <Form.Input hidden readonly value={data.id} />
+            </Form.Item>
+        </Form.Field>
+
         <Form.Field {config} name="name">
             <Form.Item>
                 <Form.Label>Name</Form.Label>
