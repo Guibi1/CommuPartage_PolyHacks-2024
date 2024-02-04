@@ -1,57 +1,52 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import * as Form from "$lib/components/ui/form";
     import type { PageData } from "./$types";
-    import { newObjectSchema } from "./newObjectSchema";
+    import { invalidateAll } from "$app/navigation";
+    import { Input } from "$lib/components/ui/input";
+    import { Label } from "$lib/components/ui/label";
+    import { Button } from "$lib/components/ui/button";
 
     export let data: PageData;
     let loading = false;
-    $: console.log("🚀 ~ loading:", loading);
 
-    const onSubmit = async ({
-        formData,
-        controller,
-    }: {
-        formData: FormData;
-        controller: AbortController;
-    }) => {
-        // Upload file
-        const file = formData.get("file")?.valueOf() as File;
+    let name = "";
+    let value = "5";
+    let file: File;
 
-        if (file.size === 0) {
-            controller.abort();
-            loading = false;
-            return;
-        }
+    function fileChange(e: any) {
+        file = e.target.files[0];
+        console.log("🚀 ~ fileChange ~ file:", file);
+    }
 
-        try {
-            console.log(file);
-            console.log("1");
-            loading = true;
-            const res = await fetch(data.signedUrl, {
-                method: "PUT",
+    async function createObject() {
+        if (!file.size || !name) return;
+
+        loading = true;
+        const resBucket = await fetch(data.signedUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/octet-stream",
+            },
+            body: await file.arrayBuffer(),
+        });
+
+        if (resBucket.ok) {
+            const res = await fetch("/api/object", {
+                method: "POST",
+                body: JSON.stringify({ id: data.id, name, value }),
                 headers: {
-                    "Content-Type": "application/octet-stream",
+                    "content-type": "application/json",
                 },
-                body: await file.arrayBuffer(),
             });
 
             if (res.ok) {
-                formData.set("id", data.id);
-                formData.set("image", data.signedUrl);
-                console.log("SUCCESS");
-
-            } else {
-                console.error("PUT failed", res);
-                controller.abort();
-                loading = false;
+                await invalidateAll();
+                goto("/profile");
             }
-        } catch (err) {
-            console.error(err);
-            controller.abort();
-            loading = false;
         }
-    };
+
+        loading = false;
+    }
 </script>
 
 <main class="p container my-8 max-w-screen-sm">
@@ -59,52 +54,23 @@
         Prêter un objet
     </h1>
 
-    <Form.Root
-        class="flex flex-col gap-2"
-        method="POST"
-        enctype="multipart/form-data"
-        form={data.form}
-        schema={newObjectSchema}
-        let:config
-        options={{
-            onSubmit,
-            onResult() {
-                loading = false;
-            },
-        }}
-    >
-        <Form.Field {config} name="id">
-            <Form.Item hidden>
-                <Form.Input hidden readonly value={data.id} />
-            </Form.Item>
-        </Form.Field>
+    <Label>
+        <span>Nom de l'article</span>
 
-        <Form.Field {config} name="name">
-            <Form.Item>
-                <Form.Label>Name</Form.Label>
-                <Form.Input />
-                <Form.Validation />
-            </Form.Item>
-        </Form.Field>
+        <Input bind:value={name} />
+    </Label>
 
-        <Form.Field {config} name="value">
-            <Form.Item>
-                <Form.Label>Value</Form.Label>
-                <Form.Input type="number" />
-                <Form.Description></Form.Description>
-                <Form.Validation />
-            </Form.Item>
-        </Form.Field>
+    <Label>
+        <span>Valeur estimé</span>
 
-        <Form.Field {config} name="file">
-            <Form.Item>
-                <Form.Label>Photo de l'object</Form.Label>
-                <Form.Input type="file" />
-                <Form.Description></Form.Description>
-                <Form.Validation />
-            </Form.Item>
-        </Form.Field>
+        <Input bind:value min="0" max="300" type="number" />
+    </Label>
 
-        <Form.Button disabled={loading} class="mt-4">Submit</Form.Button>
-    </Form.Root>
+    <Label>
+        <span>Image</span>
+
+        <Input on:change={fileChange} type="file" />
+    </Label>
+
+    <Button on:click={createObject} disabled={loading} class="mt-4">Submit</Button>
 </main>
