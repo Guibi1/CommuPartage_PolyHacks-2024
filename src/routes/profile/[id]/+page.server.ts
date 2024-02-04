@@ -9,6 +9,7 @@ export const load = async ({ locals, params }) => {
     if (!user) redirect(302, "/");
 
     const objects = await getObjectsAndTransactionsOfUser(user.id);
+    objects.sort((a, b) => (a.transaction ? -1 : 1));
 
     return { user, objects };
 };
