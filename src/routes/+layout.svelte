@@ -1,12 +1,29 @@
-<script>
+<script lang="ts">
     import "../app.pcss";
 
     import * as Avatar from "$lib/components/ui/avatar";
     import { Button } from "$lib/components/ui/button";
     import * as Popover from "$lib/components/ui/popover";
-    import { signIn, signOut } from "@auth/sveltekit/client";
+    import { signOut } from "@auth/sveltekit/client";
+    import { onMount } from "svelte";
 
     export let data;
+
+    onMount(async () => {
+        if (!data.user) return;
+        const loc = await new Promise<GeolocationPosition>((res, rej) =>
+            navigator.geolocation.getCurrentPosition(res, rej)
+        );
+        console.log("🚀 ~ onMount ~ loc:", loc);
+        const res = await fetch("/api/position", {
+            method: "POST",
+            body: JSON.stringify({ lat: loc.coords.latitude, lng: loc.coords.longitude }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        console.log(res);
+    });
 </script>
 
 <header
@@ -14,7 +31,7 @@
 >
     <div class="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div class="flex items-center gap-4">
-            <h1 class="text-center text-lg font-bold">CommuPartage</h1>
+            <a href="/" class="text-lg font-bold">CommuPartage</a>
 
             <a href="/about" class="text-foreground/60 transition-colors hover:text-foreground/80">
                 About
@@ -23,6 +40,8 @@
 
         <div class="flex items-center gap-4">
             {#if data.user}
+                <Button variant="outline" href="/profile">Profil</Button>
+
                 <Popover.Root>
                     <Popover.Trigger>
                         <Avatar.Root class="h-8 w-8">
