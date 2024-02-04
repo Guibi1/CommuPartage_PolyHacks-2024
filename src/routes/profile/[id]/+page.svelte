@@ -33,7 +33,7 @@
 
                 <div class="p-6 pl-0">
                     <img
-                        src={`https://storage.googleapis.com/commupartage_object_images/${object.image}`}
+                        src={`https://storage.googleapis.com/commupartage_object_images/${object.id}`}
                         alt="L'objet à louer"
                         class="h-40 rounded-lg border object-cover"
                     />

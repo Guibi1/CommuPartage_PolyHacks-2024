@@ -40,8 +40,6 @@
                 formData.set("id", data.id);
                 formData.set("image", data.signedUrl);
                 console.log("SUCCESS");
-                loading = true;
-                goto("/profile")
 
             } else {
                 console.error("PUT failed", res);

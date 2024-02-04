@@ -10,8 +10,9 @@ const schema = z.object({
 export const POST: RequestHandler = async ({ request, locals }) => {
     const session = await locals.auth();
     if (!session?.user?.email) throw error(401);
+    const j = await request.json();
 
-    const data = schema.safeParse(JSON.parse(await request.text()));
+    const data = schema.safeParse(j);
     if (!data.success) throw error(400);
 
     return json({

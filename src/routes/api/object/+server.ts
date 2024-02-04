@@ -9,10 +9,12 @@ const schema = z.object({
 export const DELETE: RequestHandler = async ({ request, locals }) => {
     const session = await locals.auth();
     if (!session?.user?.email) throw error(401);
+    const j = await request.json();
 
-    const data = schema.safeParse(await request.json());
+    const data = schema.safeParse(j);
+    console.log(data);
     if (!data.success) throw error(400);
     const user = await getUser(session.user.email);
 
-    return json({ success: await deleteObject(data.data.id, user?.email!) });
+    return json({ success: await deleteObject(data.data.id, user?.id!) });
 };
