@@ -17,8 +17,7 @@
         console.log("🚀 ~ onMount ~ loc:", loc);
         const res = await fetch("/api/position", {
             method: "POST",
-            body: JSON.stringify({ lat: 23, lng: 12324 }),
-            // body: JSON.stringify({ lat: loc.coords.latitude, lng: loc.coords.longitude }),
+            body: JSON.stringify({ lat: loc.coords.latitude, lng: loc.coords.longitude }),
             headers: {
                 "content-type": "application/json",
             },
