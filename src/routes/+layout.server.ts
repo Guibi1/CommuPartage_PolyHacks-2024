@@ -10,7 +10,10 @@ export const load: LayoutServerLoad = async ({ locals }) => {
                 name: session.user.name!,
                 email: session.user.email,
                 avatar: session.user.image!,
-                position: {},
+                position: {
+                    lat: 0,
+                    lng: 0,
+                },
             });
         }
     }

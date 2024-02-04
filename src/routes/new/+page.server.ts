@@ -23,12 +23,17 @@ export const load = async ({ locals }) => {
 export const actions: Actions = {
     default: async (event) => {
         const session = await event.locals.auth();
+        console.log("🚀 ~ default: ~ session:", session);
         if (!session?.user?.email) redirect(302, "/");
 
         const user = await getUser(session.user.email);
+        console.log("🚀 ~ default: ~ user:", user);
         if (!user?.id) redirect(302, "/");
 
-        const form = await superValidate(event, newObjectSchema);
+        const j = await event.request.json();
+        console.log("🚀 ~ default: ~ j:", j);
+        const form = await superValidate(j, newObjectSchema);
+        console.log("🚀 ~ default: ~ form:", form);
         if (!form.valid) {
             return fail(400, { form });
         }
