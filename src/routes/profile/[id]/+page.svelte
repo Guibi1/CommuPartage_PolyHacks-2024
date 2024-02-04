@@ -6,6 +6,7 @@
     import { Slider } from "$lib/components/ui/slider";
     import { Textarea } from "$lib/components/ui/textarea";
     import { Label } from "$lib/components/ui/label";
+    import { object } from "zod";
 
     export let data;
     let evaluate = false;
@@ -69,10 +70,12 @@
                     </Card.Header>
 
                     <Card.Footer>
-                        <Button
-                            on:click={() => borrowObject(object.id)}
-                            disabled={!!object.transaction}>Louer</Button
-                        >
+                        {#if !object.transaction}
+                            <Button on:click={() => borrowObject(object.id)}>Louer</Button>
+                        {:else}
+                            <Button href={`/transaction/${object.transaction.id}/end`}>Louer</Button
+                            >
+                        {/if}
                     </Card.Footer>
                 </div>
 

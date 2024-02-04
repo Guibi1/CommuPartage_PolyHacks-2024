@@ -71,7 +71,9 @@
 
                         <Card.Footer>
                             {#if object.transaction}
-                                <Button>Prêter à {object.receiver_name}</Button>
+                                <Button href={`/transaction/${object.transaction.id}/start`}>
+                                    Prêter à {object.receiver_name}
+                                </Button>
                             {/if}
                         </Card.Footer>
                     </div>
