@@ -14,7 +14,7 @@
 >
     <div class="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div class="flex items-center gap-4">
-            <h1 class="text-center text-lg font-bold">CommuPartage</h1>
+            <a href="/" class="text-lg font-bold">CommuPartage</a>
 
             <a href="/about" class="text-foreground/60 transition-colors hover:text-foreground/80">
                 About

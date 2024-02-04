@@ -38,14 +38,18 @@
   "dependencies": {
     "@auth/core": "^0.25.0",
     "@auth/sveltekit": "^0.11.0",
+    "@google-cloud/storage": "^7.7.0",
     "@planetscale/database": "^1.14.0",
     "bits-ui": "^0.16.0",
     "clsx": "^2.1.0",
     "dotenv": "^16.4.1",
     "drizzle-orm": "^0.29.3",
+    "formsnap": "^0.4.3",
     "import": "^0.0.6",
     "radix-icons-svelte": "^1.2.1",
+    "sveltekit-superforms": "^1.13.4",
     "tailwind-merge": "^2.2.1",
-    "tailwind-variants": "^0.1.20"
+    "tailwind-variants": "^0.1.20",
+    "zod": "^3.22.4"
   }
 }
