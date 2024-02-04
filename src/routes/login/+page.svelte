@@ -1,10 +1,11 @@
 <script lang="ts">
     import { Button } from "$lib/components/ui/button";
     import { signIn } from "@auth/sveltekit/client";
+    import Image from "$lib/assets/imgLogin.jpg";
 </script>
 
 <div class="grid flex-1 grid-cols-3 items-stretch">
-    <img class="col-span-2 object-cover" src="src/lib/assets/imgLogin.jpg" alt="" />
+    <img class="col-span-2 object-cover" src={Image} alt="a successful trade" />
 
     <main class="my-auto min-w-80 p-8">
         <h1 class=" mb-4 text-center text-2xl font-semibold tracking-tight">Login</h1>
