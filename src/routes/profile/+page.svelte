@@ -142,10 +142,6 @@
                         />
                     </div>
                 </Card.Root>
-            {:else}
-                <p class="p">Vous n'avez aucun article!</p>
-
-                <Button class="self-start" href="/new">Afficher un article</Button>
             {/each}
 
             <a class="grid" href="/new">
