@@ -33,9 +33,9 @@ export async function insertObject(object: typeof objects.$inferInsert) {
     }
 }
 
-export async function deleteObject(object: Object) {
+export async function deleteObject(id: string, userId: string) {
     try {
-        await db.delete(objects).where(eq(objects.id, object.id));
+        await db.delete(objects).where(and(eq(objects.id, id), eq(objects.owner_id, userId)));
         return true;
     } catch (error) {
         return false;
@@ -109,6 +109,14 @@ export async function insertReview(review: typeof reviews.$inferInsert) {
     } catch (error) {
         return false;
     }
+}
+
+export async function getFullReviews(userId: string) {
+    return await db
+        .select({ ...getTableColumns(reviews), writer: getTableColumns(users) })
+        .from(reviews)
+        .innerJoin(users, eq(reviews.writer_id, users.id))
+        .where(eq(reviews.user_id, userId));
 }
 
 export async function insertTransaction(transaction: typeof transactions.$inferInsert) {
