@@ -7,7 +7,7 @@ import { connect } from "@planetscale/database";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/planetscale-serverless";
 
-import { eq } from "drizzle-orm";
+import { eq, ne } from "drizzle-orm";
 import { objects, reviews, transactions, users } from "./schemas";
 
 // create the connection
@@ -40,6 +40,10 @@ export async function deleteObject(object: Object) {
     } catch (error) {
         return false;
     }
+}
+
+export async function getObjects(userId: string, limit = 20): Promise<Object[]> {
+    return await db.select().from(objects).where(ne(objects.owner_id, userId));
 }
 
 export async function insertUser(user: typeof users.$inferInsert) {
