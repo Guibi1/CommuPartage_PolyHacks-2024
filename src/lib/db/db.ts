@@ -8,7 +8,7 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/planetscale-serverless";
 
 import { and, eq, getTableColumns, isNull, ne, or } from "drizzle-orm";
-import { objects, reviews, transactions, users } from "./schemas";
+import { objects, reviews, transactions, users, type Position } from "./schemas";
 
 // create the connection
 const connection = connect({
@@ -91,6 +91,15 @@ export async function getUserFromID(id: string): Promise<User | null> {
 export async function getUser(email: string): Promise<User | null> {
     const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
     return rows.at(0) ?? null;
+}
+
+export async function setUserPosition(email: string, pos: Position) {
+    try {
+        await db.update(users).set({ position: pos }).where(eq(users.email, email));
+        return true;
+    } catch (error) {
+        return false;
+    }
 }
 
 export async function insertReview(review: typeof reviews.$inferInsert) {

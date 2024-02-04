@@ -1,12 +1,24 @@
-<script>
+<script lang="ts">
     import "../app.pcss";
 
     import * as Avatar from "$lib/components/ui/avatar";
     import { Button } from "$lib/components/ui/button";
     import * as Popover from "$lib/components/ui/popover";
     import { signOut } from "@auth/sveltekit/client";
+    import { onMount } from "svelte";
 
     export let data;
+
+    onMount(async () => {
+        if (!data.user) return;
+        const loc = await new Promise<GeolocationPosition>((res, rej) =>
+            navigator.geolocation.getCurrentPosition(res, rej)
+        );
+        fetch("/api/position", {
+            method: "POST",
+            body: JSON.stringify(loc.coords),
+        });
+    });
 </script>
 
 <header

@@ -17,13 +17,14 @@
             libraries: ["maps", "marker"],
         });
 
-        const { Map, InfoWindow } = await loader.importLibrary("maps");
+        const { Map } = await loader.importLibrary("maps");
         const { AdvancedMarkerElement, PinElement } = await loader.importLibrary("marker");
 
         // Create an array of alphabetical characters used to label the markers.
         const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 
         const markers = data.objects.map(({ position }, i) => {
+            if (!position.lat || !position.lng) return;
             const label = labels[i % labels.length];
             const pinGlyph = new PinElement({
                 glyph: label,
