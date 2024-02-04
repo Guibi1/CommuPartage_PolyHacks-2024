@@ -72,9 +72,12 @@
                     <Card.Footer>
                         {#if !object.transaction}
                             <Button on:click={() => borrowObject(object.id)}>Louer</Button>
+                        {:else if object.transaction.active}
+                            <Button href={`/transaction/${object.transaction.id}/end`}>
+                                Remettre
+                            </Button>
                         {:else}
-                            <Button href={`/transaction/${object.transaction.id}/end`}>Louer</Button
-                            >
+                            <Button variant="ghost">En attente</Button>
                         {/if}
                     </Card.Footer>
                 </div>

@@ -70,7 +70,11 @@
                         </Card.Header>
 
                         <Card.Footer>
-                            {#if object.transaction}
+                            {#if object.transaction?.active}
+                                <span class="text-primary">
+                                    Prêté à {object.receiver_name}
+                                </span>
+                            {:else if object.transaction}
                                 <Button href={`/transaction/${object.transaction.id}/start`}>
                                     Prêter à {object.receiver_name}
                                 </Button>
