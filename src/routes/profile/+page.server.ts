@@ -1,4 +1,9 @@
-import { getFullReviews, getObjectsAndTransactionsOfUser, getUser } from "$lib/db/db.js";
+import {
+    getBorrowedObjects,
+    getFullReviews,
+    getObjectsAndTransactionsOfUser,
+    getUser,
+} from "$lib/db/db.js";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ locals, params }) => {
@@ -10,7 +15,8 @@ export const load = async ({ locals, params }) => {
 
     const reviews = await getFullReviews(user.id);
     const objects = await getObjectsAndTransactionsOfUser(user.id);
+    const borrowedObjects = await getBorrowedObjects(user.id);
     objects.sort((a, b) => (a.transaction ? 1 : -1));
 
-    return { user, objects, reviews };
+    return { user, objects, borrowedObjects, reviews };
 };

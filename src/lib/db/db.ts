@@ -73,6 +73,21 @@ export async function getObjectsAndTransactionsOfUser(userId: string) {
     return res;
 }
 
+export async function getBorrowedObjects(userId: string) {
+    const res = await db
+        .select({
+            ...getTableColumns(objects),
+            transaction: getTableColumns(transactions),
+            lender: getTableColumns(users),
+        })
+        .from(objects)
+        .innerJoin(transactions, eq(objects.id, transactions.object_id))
+        .innerJoin(users, eq(transactions.lender_id, users.id))
+        .where(eq(transactions.receiver_id, userId));
+
+    return res;
+}
+
 export async function insertUser(user: typeof users.$inferInsert) {
     try {
         await db.insert(users).values(user);

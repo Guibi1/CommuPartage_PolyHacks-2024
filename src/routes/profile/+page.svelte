@@ -41,6 +41,58 @@
         <Loader />
     {:else}
         <div class="m-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {#each data.borrowedObjects as object}
+                <Card.Root class="grid grid-cols-2">
+                    <div>
+                        <Card.Header>
+                            <Card.Title class="flex items-center justify-between fill-destructive">
+                                <span>
+                                    {object.name}
+                                </span>
+
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    on:click={() => deleteObject(object.id)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        ><path
+                                            d="M15 2H9c-1.103 0-2 .897-2 2v2H3v2h2v12c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2V8h2V6h-4V4c0-1.103-.897-2-2-2zM9 4h6v2H9V4zm8 16H7V8h10v12z"
+                                        ></path></svg
+                                    >
+                                </Button>
+                            </Card.Title>
+                            <Card.Description>{object.category}</Card.Description>
+                        </Card.Header>
+
+                        <Card.Content>
+                            Prêté par
+                            <a href={`/profile/${object.lender.id}`}>
+                                {object.lender.name}
+                            </a>
+                        </Card.Content>
+
+                        <Card.Footer>
+                            <Button href={`/transaction/${object.transaction.id}/end`}>
+                                Remettre
+                            </Button>
+                        </Card.Footer>
+                    </div>
+
+                    <div class="p-6 pl-0">
+                        <img
+                            src={`https://storage.googleapis.com/commupartage_object_images/${object.id}`}
+                            alt="L'objet à louer"
+                            class="h-40 rounded-lg border object-cover"
+                        />
+                    </div>
+                </Card.Root>
+            {/each}
+
             {#each data.objects as object}
                 <Card.Root class="grid grid-cols-2">
                     <div>
