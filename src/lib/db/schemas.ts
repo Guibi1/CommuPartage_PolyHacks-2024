@@ -1,6 +1,11 @@
 // drizzle/schema.ts
 import { boolean, datetime, int, json, mysqlTable, varchar } from "drizzle-orm/mysql-core";
 
+export type Position = {
+    lat: number;
+    lng: number;
+};
+
 export const objects = mysqlTable("objects", {
     id: varchar("id", { length: 24 })
         .primaryKey()
@@ -19,7 +24,7 @@ export const users = mysqlTable("users", {
     name: varchar("name", { length: 24 }).notNull(),
     email: varchar("email", { length: 50 }).notNull(),
     avatar: varchar("avatar", { length: 200 }).notNull(),
-    position: json("position").notNull(),
+    position: json("position").notNull().$type<Position>(),
 });
 
 export const reviews = mysqlTable("reviews", {

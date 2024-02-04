@@ -12,12 +12,6 @@
 <!-- pt import les images idk -->
 
 <div class="container">
-    <div class="sticky m-10 p-5 text-center">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, fuga repellat. Optio,
-        provident distinctio nesciunt eaque quasi laborum earum tempore maxime pariatur quam
-        reiciendis? Cum laborum nesciunt molestias. Placeat, alias!
-    </div>
-
     <div class="flex flex-col">
         <div>
             <h1 class="m-10 text-center text-3xl">Notre but!</h1>

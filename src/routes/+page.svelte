@@ -23,7 +23,7 @@
         // Create an array of alphabetical characters used to label the markers.
         const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 
-        const markers = locations.map((position, i) => {
+        const markers = data.objects.map(({ position }, i) => {
             const label = labels[i % labels.length];
             const pinGlyph = new PinElement({
                 glyph: label,
@@ -49,15 +49,9 @@
         });
         new MarkerClusterer({ markers, map });
     });
-
-    const locations = [
-        { lat: 45.5225691, lng: -73.7620294 },
-        { lat: 45.5527626, lng: -73.6658292 },
-        { lat: 45.5762141, lng: -73.6579424 },
-    ];
 </script>
 
-<main class="container overflow-hidden py-8">
+<main class="container flex flex-col overflow-hidden py-8">
     <div class="mb-4 flex items-center justify-between">
         <h1 class="h1">Articles à louer</h1>
 
@@ -66,12 +60,12 @@
         {/if}
     </div>
 
-    <div class="grid grid-cols-3 gap-8">
-        <div class="col-span-2 grid aspect-square rounded-xl bg-primary p-4">
+    <div class="grid gap-8 overflow-hidden lg:grid-cols-3">
+        <div class="col-span-2 hidden rounded-xl bg-primary p-4 lg:grid">
             <div class="rounded-lg" bind:this={mapDiv} />
         </div>
 
-        <div class="my-4 flex flex-col gap-2">
+        <div class="my-4 flex h-full flex-col gap-2 overflow-y-auto">
             {#each data.objects as object}
                 <Card.Root class="grid grid-cols-2">
                     <div class="flex flex-col justify-between">

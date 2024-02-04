@@ -42,11 +42,12 @@ export async function deleteObject(object: Object) {
     }
 }
 
-export async function getObjects(userId: string): Promise<Object[]> {
+export async function getObjectsWithLocation(userId: string) {
     const res = await db
-        .select(getTableColumns(objects))
+        .select({ ...getTableColumns(objects), position: users.position })
         .from(objects)
         .leftJoin(transactions, eq(objects.id, transactions.object_id))
+        .innerJoin(users, eq(users.id, objects.owner_id))
         .where(
             and(
                 ne(objects.owner_id, userId),
