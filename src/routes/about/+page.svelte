@@ -89,7 +89,7 @@
                     />
                 </div>
                 <div>
-                    <h2 class="p-2 text-center">Oliver, Machine Learning Legend</h2>
+                    <h2 class="p-2 text-center">Olivier, Machine Learning Legend</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
                         src="src/lib/assets/oli.jpg"
