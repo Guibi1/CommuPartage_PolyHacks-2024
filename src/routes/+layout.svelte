@@ -14,10 +14,16 @@
         const loc = await new Promise<GeolocationPosition>((res, rej) =>
             navigator.geolocation.getCurrentPosition(res, rej)
         );
-        fetch("/api/position", {
+        console.log("🚀 ~ onMount ~ loc:", loc);
+        const res = await fetch("/api/position", {
             method: "POST",
-            body: JSON.stringify(loc.coords),
+            body: JSON.stringify({ lat: 23, lng: 12324 }),
+            // body: JSON.stringify({ lat: loc.coords.latitude, lng: loc.coords.longitude }),
+            headers: {
+                "content-type": "application/json",
+            },
         });
+        console.log(res);
     });
 </script>
 
