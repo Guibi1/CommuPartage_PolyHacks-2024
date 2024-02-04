@@ -47,7 +47,7 @@
                     </Popover.Content>
                 </Popover.Root>
             {:else}
-                <Button on:click={() => signIn("a0")}>Se connecter</Button>
+                <Button href="/login">Se connecter</Button>
             {/if}
         </div>
     </div>
