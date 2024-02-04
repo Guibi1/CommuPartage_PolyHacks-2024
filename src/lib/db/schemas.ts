@@ -12,7 +12,6 @@ export const objects = mysqlTable("objects", {
         .$defaultFn(() => generateRandomString(24)),
     owner_id: varchar("owner_id", { length: 24 }).notNull(),
     name: varchar("name", { length: 50 }).notNull(),
-    image: varchar("image", { length: 200 }).notNull(),
     value: int("value").notNull(),
     category: varchar("category", { length: 256 }),
 });
@@ -31,12 +30,10 @@ export const reviews = mysqlTable("reviews", {
     id: varchar("id", { length: 24 })
         .primaryKey()
         .$defaultFn(() => generateRandomString(24)),
-    object_id: varchar("object_id", { length: 24 }).notNull(),
     user_id: varchar("user_id", { length: 24 }).notNull(),
     writer_id: varchar("writer_id", { length: 24 }).notNull(),
     rating: int("rating").notNull(),
     description: varchar("description", { length: 256 }).notNull(),
-    weight: int("weight").notNull(),
 });
 
 export const transactions = mysqlTable("transactions", {
@@ -47,7 +44,7 @@ export const transactions = mysqlTable("transactions", {
     lender_id: varchar("lender_id", { length: 24 }).notNull(),
     receiver_id: varchar("receiver_id", { length: 24 }).notNull(),
     date_start: datetime("date_start").notNull(),
-    date_end: datetime("date_end").notNull(),
+    date_end: datetime("date_end"),
     active: boolean("active").notNull(),
 });
 

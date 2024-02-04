@@ -12,7 +12,6 @@ export const DELETE: RequestHandler = async ({ request, locals }) => {
     const j = await request.json();
 
     const data = schema.safeParse(j);
-    console.log(data);
     if (!data.success) throw error(400);
     const user = await getUser(session.user.email);
 

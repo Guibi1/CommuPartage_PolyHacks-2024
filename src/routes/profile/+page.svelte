@@ -95,9 +95,9 @@
         {#each data.reviews as review}
             <div>
                 {review.rating}
-                <span>
+                <a href={`/profile/${review.writer.id}`}>
                     Par {review.writer.name}
-                </span>
+                </a>
             </div>
         {:else}
             <p class="p">Vous n'avez aucune évaluation!</p>

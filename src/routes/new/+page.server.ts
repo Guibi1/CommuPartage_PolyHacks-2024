@@ -34,7 +34,7 @@ export const actions: Actions = {
         }
 
         console.log("🚀 ~ default: ~ form:", form.data);
-        const res = await insertObject({ ...form.data, image: form.data.id, owner_id: user.id });
+        const res = await insertObject({ ...form.data, owner_id: user.id });
         console.log("🚀 ~ default: ~ await insertObject(form.data):", res);
         redirect(302, "/profile");
     },
