@@ -86,6 +86,24 @@
 
                 <Button class="self-start" href="/new">Afficher un article</Button>
             {/each}
+
+            <a class="grid" href="/new">
+                <Card.Root>
+                    <div class="flex flex-col items-center justify-center gap-4 p-8">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="4rem"
+                            height="4rem"
+                            viewBox="0 0 24 24"
+                            class="fill-primary"
+                            ><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z"></path><path
+                                d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"
+                            ></path></svg
+                        >
+                        <span>Ajouter un article</span>
+                    </div>
+                </Card.Root>
+            </a>
         </div>
     {/if}
 

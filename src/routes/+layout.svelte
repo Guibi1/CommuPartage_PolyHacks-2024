@@ -26,19 +26,19 @@
     });
 </script>
 
+<svelte:head>
+    <title>Commu Partage</title>
+</svelte:head>
+
 <header
     class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
     <div class="container flex h-14 max-w-screen-2xl items-center justify-between">
-        <div class="flex items-center gap-4">
-            <a href="/" class="text-lg font-bold">CommuPartage</a>
-
-            <a href="/about" class="text-foreground/60 transition-colors hover:text-foreground/80">
-                À propos
-            </a>
-        </div>
+        <a href="/" class="text-lg font-bold">CommuPartage</a>
 
         <div class="flex items-center gap-4">
+            <Button variant="outline" href="/profile">À propos</Button>
+
             {#if data.user}
                 <Button variant="outline" href="/profile">Profil</Button>
 

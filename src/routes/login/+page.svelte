@@ -7,10 +7,10 @@
 <div class="grid flex-1 grid-cols-3 items-stretch">
     <img class="col-span-2 object-cover" src={Image} alt="a successful trade" />
 
-    <main class="my-auto min-w-80 p-8">
-        <h1 class=" mb-4 text-center text-2xl font-semibold tracking-tight">Login</h1>
+    <main class="my-auto grid min-w-80 gap-8 p-8">
+        <h1 class="text-center text-4xl font-semibold tracking-tight">Login</h1>
 
-        <div class="relative">
+        <div class="relative mx-8">
             <div class="absolute inset-0 flex items-center">
                 <span class="w-full border-t"></span>
             </div>

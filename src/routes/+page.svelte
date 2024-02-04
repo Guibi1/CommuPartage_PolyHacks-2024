@@ -9,9 +9,15 @@
 
     const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
     export let data;
+    let map: any;
     let mapDiv: Element;
 
     $: selected = $page.url.searchParams.get("selected");
+    $: {
+        if (map && "panTo" in map && selected) {
+            map.panTo(data.objects.find(({ id }) => id === selected)?.position);
+        }
+    }
 
     onMount(async () => {
         const { Loader } = await import("@googlemaps/js-api-loader");
@@ -44,7 +50,7 @@
         });
         // Add a marker clusterer to manage the markers.
 
-        let map = new Map(mapDiv, {
+        map = new Map(mapDiv, {
             zoom: 14,
             center: { lat: 45.5048442, lng: -73.6184641 },
             mapId: "DEMO_MAP_ID",
@@ -90,11 +96,11 @@
                             </Card.Footer>
                         </div>
 
-                        <div class="p-6 pl-0">
+                        <div class="grid p-6 pl-0">
                             <img
                                 src={`https://storage.googleapis.com/commupartage_object_images/${object.id}`}
                                 alt="L'objet à louer"
-                                class="h-40 rounded-lg border object-cover"
+                                class="h-40 w-full rounded-lg border object-cover"
                             />
                         </div>
                     </Card.Root>
