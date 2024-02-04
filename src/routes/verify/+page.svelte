@@ -11,10 +11,13 @@
 
     let canvas: HTMLCanvasElement;
 
-    onMount(async () => {
+    onMount(() => {
+        let s: MediaStream;
+
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: false })
             .then((stream) => {
+                s = stream;
                 video.srcObject = stream;
                 video.play();
             })
@@ -33,6 +36,8 @@
             },
             false
         );
+
+        return () => s.getTracks().forEach((t) => t.stop());
     });
 
     async function takePic() {
