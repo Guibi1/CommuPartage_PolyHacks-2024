@@ -5,6 +5,7 @@
 
     export let data: PageData;
     let loading = false;
+    $: console.log("🚀 ~ loading:", loading);
 
     const onSubmit = async ({
         formData,
@@ -71,7 +72,7 @@
         <Form.Field {config} name="name">
             <Form.Item>
                 <Form.Label>Name</Form.Label>
-                <Form.Input readonly={loading} />
+                <Form.Input />
                 <Form.Validation />
             </Form.Item>
         </Form.Field>
@@ -79,7 +80,7 @@
         <Form.Field {config} name="value">
             <Form.Item>
                 <Form.Label>Value</Form.Label>
-                <Form.Input type="number" readonly={loading} />
+                <Form.Input type="number" />
                 <Form.Description></Form.Description>
                 <Form.Validation />
             </Form.Item>
@@ -88,7 +89,7 @@
         <Form.Field {config} name="file">
             <Form.Item>
                 <Form.Label>Photo de l'object</Form.Label>
-                <Form.Input type="file" readonly={loading} />
+                <Form.Input type="file" />
                 <Form.Description></Form.Description>
                 <Form.Validation />
             </Form.Item>
