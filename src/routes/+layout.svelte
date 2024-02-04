@@ -34,7 +34,7 @@
             <a href="/" class="text-lg font-bold">CommuPartage</a>
 
             <a href="/about" class="text-foreground/60 transition-colors hover:text-foreground/80">
-                About
+                À propos
             </a>
         </div>
 

@@ -6,9 +6,13 @@
 
     import { Loader } from "@googlemaps/js-api-loader";
     import { MarkerClusterer } from "@googlemaps/markerclusterer";
+    import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
 
     export let data;
     let mapDiv: Element;
+
+    $: selected = $page.url.searchParams.get("selected");
 
     onMount(async () => {
         const loader = new Loader({
@@ -23,7 +27,7 @@
         // Create an array of alphabetical characters used to label the markers.
         const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 
-        const markers = data.objects.map(({ position }, i) => {
+        const markers = data.objects.map(({ position, id }, i) => {
             if (!position.lat || !position.lng) return;
             const label = labels[i % labels.length];
             const pinGlyph = new PinElement({
@@ -37,7 +41,9 @@
 
             // markers can only be keyboard focusable when they have click listeners
             // open info window when marker is clicked
-            marker.addListener("click", () => {});
+            marker.addListener("click", () => {
+                goto(`?selected=${id}`);
+            });
             return marker;
         });
         // Add a marker clusterer to manage the markers.
@@ -66,28 +72,32 @@
             <div class="rounded-lg" bind:this={mapDiv} />
         </div>
 
-        <div class="my-4 flex h-full flex-col gap-2 overflow-y-auto">
+        <div class=" flex h-full flex-col gap-2 overflow-y-auto p-4">
             {#each data.objects as object}
-                <Card.Root class="grid grid-cols-2">
-                    <div class="flex flex-col justify-between">
-                        <Card.Header>
-                            <Card.Title>{object.name}</Card.Title>
-                            <Card.Description>{object.category}</Card.Description>
-                        </Card.Header>
+                <a href={`?selected=${object.id}`}>
+                    <Card.Root
+                        class={`grid grid-cols-2 ${object.id === selected ? "ring-4 ring-primary" : ""}`}
+                    >
+                        <div class="flex flex-col justify-between">
+                            <Card.Header>
+                                <Card.Title>{object.name}</Card.Title>
+                                <Card.Description>{object.category}</Card.Description>
+                            </Card.Header>
 
-                        <Card.Footer>
-                            <Button href={`/profile/${object.owner_id}`}>Savoir plus</Button>
-                        </Card.Footer>
-                    </div>
+                            <Card.Footer>
+                                <Button href={`/profile/${object.owner_id}`}>Savoir plus</Button>
+                            </Card.Footer>
+                        </div>
 
-                    <div class="p-6 pl-0">
-                        <img
-                            src={`https://storage.googleapis.com/commupartage_object_images/${object.image}`}
-                            alt="L'objet à louer"
-                            class="h-40 rounded-lg border object-cover"
-                        />
-                    </div>
-                </Card.Root>
+                        <div class="p-6 pl-0">
+                            <img
+                                src={`https://storage.googleapis.com/commupartage_object_images/${object.image}`}
+                                alt="L'objet à louer"
+                                class="h-40 rounded-lg border object-cover"
+                            />
+                        </div>
+                    </Card.Root>
+                </a>
             {/each}
         </div>
     </div>

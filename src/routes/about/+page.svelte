@@ -11,8 +11,7 @@
 
 <!-- pt import les images idk -->
 
-<div class="container">
-    <div class="flex flex-col">
+<div class="container flex flex-col gap-6">
         <div>
             <h1 class="m-10 text-center text-3xl">Notre but!</h1>
 
@@ -100,5 +99,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
