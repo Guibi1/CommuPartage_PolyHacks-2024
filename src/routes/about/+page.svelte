@@ -1,4 +1,12 @@
 <script>
+    import auth from "$lib/assets/auth.svg"
+    import gab from "$lib/assets/gab4.jpg"
+    import oli from "$lib/assets/oli.jpg"
+    import laurent from "$lib/assets/laurent.jpg"
+    import google from "$lib/assets/auth.svg"
+    import mediapipe from "$lib/assets/mediapipe.svg"
+    import svelte from "$lib/assets/svelte.png"
+    import planet from "$lib/assets/planet.png"
 </script>
 
 <!-- pt import les images idk -->
@@ -29,7 +37,7 @@
                     <h2 class="mt-4 p-2 text-center">Auth0</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/auth.svg"
+                        src={auth}
                         alt=""
                     />
                 </div>
@@ -37,7 +45,7 @@
                     <h2 class="mt-4 p-2 text-center">SvelteKit</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/svelte.png"
+                        src={svelte}
                         alt=""
                     />
                 </div>
@@ -45,7 +53,7 @@
                     <h2 class="mt-4 p-2 text-center">PlanetScale</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/planet.png"
+                        src={planet}
                         alt=""
                     />
                 </div>
@@ -53,7 +61,7 @@
                     <h2 class="mt-4 p-2 text-center">MediaPipe</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/mediapipe.svg"
+                        src={mediapipe}
                         alt=""
                     />
                 </div>
@@ -61,7 +69,7 @@
                     <h2 class="mt-4 p-2 text-center">Google Maps</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/google.png"
+                        src={google}
                         alt=""
                     />
                 </div>
@@ -76,7 +84,7 @@
                     <h2 class="p-2 text-center">Gabriel, Handymen</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/gab4.jpg"
+                        src={gab}
                         alt=""
                     />
                 </div>
@@ -84,7 +92,7 @@
                     <h2 class="p-2 text-center">Laurent, FrontEnd Nerd</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/laurent.JPG"
+                        src={laurent}
                         alt=""
                     />
                 </div>
@@ -92,7 +100,7 @@
                     <h2 class="p-2 text-center">Olivier, Machine Learning Legend</h2>
                     <img
                         class="aspect-square w-full object-cover p-8"
-                        src="src/lib/assets/oli.jpg"
+                        src={oli}
                         alt=""
                     />
                 </div>

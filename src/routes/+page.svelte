@@ -45,6 +45,7 @@
             zoom: 14,
             center: { lat: 45.5048442, lng: -73.6184641 },
             mapId: "DEMO_MAP_ID",
+            disableDefaultUI: true,
         });
         new MarkerClusterer({ markers, map });
     });
