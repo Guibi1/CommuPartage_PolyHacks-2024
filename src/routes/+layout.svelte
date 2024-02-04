@@ -45,7 +45,11 @@
                 <Popover.Root>
                     <Popover.Trigger>
                         <Avatar.Root class="h-8 w-8">
-                            <Avatar.Image src={data.user.image} alt={data.user.name} />
+                            <Avatar.Image
+                                src={"https://storage.googleapis.com/commupartage_user_images/" +
+                                    data.user.id}
+                                alt={data.user.name}
+                            />
                             <Avatar.Fallback>
                                 {data.user.name?.at(0)?.toUpperCase()}
                             </Avatar.Fallback>

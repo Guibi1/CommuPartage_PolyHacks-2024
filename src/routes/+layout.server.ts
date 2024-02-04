@@ -1,4 +1,5 @@
 import { getUser, insertUser } from "$lib/db/db";
+import { redirect } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals }) => {
@@ -15,6 +16,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
                     lng: 0,
                 },
             });
+            redirect(302, "/verify");
         }
     }
 
