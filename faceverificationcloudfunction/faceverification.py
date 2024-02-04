@@ -1,9 +1,15 @@
 import face_recognition
-known_image = face_recognition.load_image_file("IMG_6904.jpg")
-unknown_image = face_recognition.load_image_file("IMG_6903.jpg")
 
-biden_encoding = face_recognition.face_encodings(known_image)[0]
-unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
-results = face_recognition.compare_faces([biden_encoding], unknown_encoding)
-print(results)
+def sameface(filepath1,filepath2):
+    image_1 = face_recognition.load_image_file(filepath1)
+    image_2 = face_recognition.load_image_file(filepath2)
+
+    encoding_1 = face_recognition.face_encodings(image_1)[0]
+    encoding_2 = face_recognition.face_encodings(image_2)[0]
+    results = face_recognition.compare_faces([encoding_1], encoding_2)
+    return results
+
+
+if sameface("fdfasd-original.jpg","fdfasd-verify.jpg")[0] == True:
+    print("hello")
