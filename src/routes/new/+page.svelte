@@ -17,7 +17,15 @@
         // Upload file
         const file = formData.get("file")?.valueOf() as File;
 
+        if (file.size === 0) {
+            controller.abort();
+            loading = false;
+            return;
+        }
+
         try {
+            console.log(file);
+            console.log("1");
             loading = true;
             const res = await fetch(data.signedUrl, {
                 method: "PUT",
@@ -31,6 +39,7 @@
                 formData.set("id", data.id);
                 formData.set("image", data.signedUrl);
                 console.log("SUCCESS");
+                loading = true;
             } else {
                 console.error("PUT failed", res);
                 controller.abort();
