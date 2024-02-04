@@ -48,7 +48,10 @@
 <main class="container flex flex-col py-8">
     <div class="mb-4 flex items-center gap-4">
         <Avatar.Root class="h-16 w-16">
-            <Avatar.Image src={data.user.avatar} alt={data.user.name} />
+            <Avatar.Image
+                src={"https://storage.googleapis.com/commupartage_user_images/" + data.user.id}
+                alt={data.user.name}
+            />
             <Avatar.Fallback>{data.user.name.at(0)?.toUpperCase()}</Avatar.Fallback>
         </Avatar.Root>
 

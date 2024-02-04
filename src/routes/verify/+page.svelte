@@ -1,7 +1,9 @@
 <script lang="ts">
     import { Button } from "$lib/components/ui/button";
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
+    export let data;
     let video: HTMLVideoElement;
 
     let width = 0; // We will scale the photo width to this
@@ -40,8 +42,16 @@
             canvas.height = height;
             context.drawImage(video, 0, 0, width, height);
 
-            const data = await new Promise<Blob | null>((res) => canvas.toBlob(res));
-            data?.arrayBuffer();
+            const file = await new Promise<Blob | null>((res) => canvas.toBlob(res, "image/webp"));
+            const res = await fetch(data.signedUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/octet-stream",
+                },
+                body: await file?.arrayBuffer(),
+            });
+
+            if (res.ok) goto("/");
         }
     }
 </script>
@@ -54,3 +64,5 @@
         <Button on:click={takePic}>Prendre la photo</Button>
     </div>
 </main>
+
+<canvas hidden bind:this={canvas} />

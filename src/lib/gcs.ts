@@ -1,7 +1,11 @@
 import { GOOGLE_CLOUD_CREDENTIALS } from "$env/static/private";
 import { Storage } from "@google-cloud/storage";
 
-type BucketName = "commupartage_object_images";
+type BucketName =
+    | "commupartage_object_images"
+    | "commupartage_user_images"
+    | "commupartage_transaction_end_image"
+    | "commupartage_transaction_start_images";
 
 const storage = new Storage({
     credentials: JSON.parse(GOOGLE_CLOUD_CREDENTIALS),
@@ -31,7 +35,7 @@ async function configureBucketCors() {
     console.log("🚀 ~ configureBucketCors ~ options:", options);
 
     await storage
-        .bucket("commupartage_object_images" satisfies BucketName)
+        .bucket("commupartage_user_images" satisfies BucketName)
         .setCorsConfiguration([options]);
 
     console.log("Bucket CORS set!");
