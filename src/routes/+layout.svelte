@@ -4,7 +4,7 @@
     import * as Avatar from "$lib/components/ui/avatar";
     import { Button } from "$lib/components/ui/button";
     import * as Popover from "$lib/components/ui/popover";
-    import { signIn, signOut } from "@auth/sveltekit/client";
+    import { signOut } from "@auth/sveltekit/client";
 
     export let data;
 </script>
@@ -23,6 +23,8 @@
 
         <div class="flex items-center gap-4">
             {#if data.user}
+                <Button variant="outline" href="/profile">Profil</Button>
+
                 <Popover.Root>
                     <Popover.Trigger>
                         <Avatar.Root class="h-8 w-8">

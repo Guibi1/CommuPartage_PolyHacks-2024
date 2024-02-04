@@ -56,31 +56,31 @@
     ];
 </script>
 
-<main class="container py-8">
-    <div class="mb-4 flex justify-between">
+<main class="container overflow-hidden py-8">
+    <div class="mb-4 flex items-center justify-between">
         <h1 class="h1">Articles à louer</h1>
 
         {#if data.user}
-            <Button href="/new">Create object</Button>
+            <Button href="/new">Afficher un article</Button>
         {/if}
     </div>
 
-    <div class="grid grid-cols-3">
-        <div class="col-span-2 grid aspect-square rounded-xl border-4 border-primary">
-            <div class="rounded-lg" bind:this={mapDiv}></div>
+    <div class="grid grid-cols-3 gap-8">
+        <div class="col-span-2 grid aspect-square rounded-xl bg-primary p-4">
+            <div class="rounded-lg" bind:this={mapDiv} />
         </div>
 
-        <div class="m-4 flex flex-col gap-2">
+        <div class="my-4 flex flex-col gap-2">
             {#each data.objects as object}
                 <Card.Root class="grid grid-cols-2">
-                    <div>
+                    <div class="flex flex-col justify-between">
                         <Card.Header>
                             <Card.Title>{object.name}</Card.Title>
                             <Card.Description>{object.category}</Card.Description>
                         </Card.Header>
 
                         <Card.Footer>
-                            <Button>Louer</Button>
+                            <Button href={`/profile/${object.owner_id}`}>Savoir plus</Button>
                         </Card.Footer>
                     </div>
 

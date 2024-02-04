@@ -7,7 +7,7 @@ import { connect } from "@planetscale/database";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/planetscale-serverless";
 
-import { eq, ne } from "drizzle-orm";
+import { and, eq, getTableColumns, isNull, ne, or } from "drizzle-orm";
 import { objects, reviews, transactions, users } from "./schemas";
 
 // create the connection
@@ -42,8 +42,34 @@ export async function deleteObject(object: Object) {
     }
 }
 
-export async function getObjects(userId: string, limit = 20): Promise<Object[]> {
-    return await db.select().from(objects).where(ne(objects.owner_id, userId));
+export async function getObjects(userId: string): Promise<Object[]> {
+    const res = await db
+        .select(getTableColumns(objects))
+        .from(objects)
+        .leftJoin(transactions, eq(objects.id, transactions.object_id))
+        .where(
+            and(
+                ne(objects.owner_id, userId),
+                or(isNull(transactions.active), eq(transactions.active, false))
+            )
+        );
+
+    return res;
+}
+
+export async function getObjectsAndTransactionsOfUser(userId: string) {
+    const res = await db
+        .select({
+            ...getTableColumns(objects),
+            transaction: getTableColumns(transactions),
+            receiver_name: users.name,
+        })
+        .from(objects)
+        .leftJoin(transactions, eq(objects.id, transactions.object_id))
+        .leftJoin(users, eq(transactions.receiver_id, users.id))
+        .where(eq(objects.owner_id, userId));
+
+    return res;
 }
 
 export async function insertUser(user: typeof users.$inferInsert) {
@@ -54,6 +80,11 @@ export async function insertUser(user: typeof users.$inferInsert) {
         console.log("🚀 ~ insertUser ~ error:", error);
         return false;
     }
+}
+
+export async function getUserFromID(id: string): Promise<User | null> {
+    const rows = await db.select().from(users).where(eq(users.id, id)).limit(1);
+    return rows.at(0) ?? null;
 }
 
 export async function getUser(email: string): Promise<User | null> {
