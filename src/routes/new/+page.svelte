@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import * as Form from "$lib/components/ui/form";
     import type { PageData } from "./$types";
     import { newObjectSchema } from "./newObjectSchema";
@@ -40,6 +41,8 @@
                 formData.set("image", data.signedUrl);
                 console.log("SUCCESS");
                 loading = true;
+                goto("/profile")
+
             } else {
                 console.error("PUT failed", res);
                 controller.abort();
