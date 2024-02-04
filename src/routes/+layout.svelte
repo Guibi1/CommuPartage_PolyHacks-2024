@@ -37,7 +37,7 @@
         <a href="/" class="text-lg font-bold">CommuPartage</a>
 
         <div class="flex items-center gap-4">
-            <Button variant="outline" href="/profile">À propos</Button>
+            <Button variant="outline" href="/about">À propos</Button>
 
             {#if data.user}
                 <Button variant="outline" href="/profile">Profil</Button>
